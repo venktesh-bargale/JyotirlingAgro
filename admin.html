@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin — Jyotirling Agro Mart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Hind:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════
+       LOGIN SCREEN
+  ══════════════════════════════════════════════ -->
+  <div id="loginScreen">
+    <div class="login-card">
+      <img src="assets/logo-emblem.png" alt="Jyotirling Agro Mart" class="login-logo">
+      <h1>Admin Login</h1>
+      <p class="login-sub">Jyotirling Agro Mart · Product Manager</p>
+      <form id="loginForm" autocomplete="off">
+        <label class="field-label" for="pwdInput">Password</label>
+        <input type="password" id="pwdInput" placeholder="Enter admin password"
+               autocomplete="current-password" required>
+        <div id="loginErr" class="err-msg" hidden>Incorrect password. Try again.</div>
+        <button type="submit" class="btn btn-primary btn-full" style="margin-top:16px">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       ADMIN SCREEN
+  ══════════════════════════════════════════════ -->
+  <div id="adminScreen" hidden>
+
+    <header class="adm-bar">
+      <div class="adm-brand">
+        <img src="assets/logo-emblem.png" alt="" class="adm-emblem">
+        <span class="adm-title">Agro Mart Admin</span>
+      </div>
+      <div class="adm-controls">
+        <span id="saveStatus" class="save-badge" hidden></span>
+        <button id="addBtn"    class="btn btn-outline">+ Add Product</button>
+        <button id="saveBtn"   class="btn btn-primary">⬇ Download data.js</button>
+        <button id="logoutBtn" class="btn btn-ghost">Logout</button>
+      </div>
+    </header>
+
+    <div class="adm-body">
+
+      <!-- Data source status bar -->
+      <div class="source-bar">
+        <span id="sourceText" class="source-label">Loading…</span>
+        <button id="refreshBtn" class="btn btn-ghost btn-sm">↺ Refresh</button>
+      </div>
+
+      <!-- ── ADD / EDIT FORM ── -->
+      <div id="formWrap" class="form-wrap" hidden>
+        <div class="form-card">
+          <h2 id="formHeading">Add Product</h2>
+          <div class="form-grid">
+
+            <label class="field span2">
+              ID <span class="req">*</span>
+              <input type="text" id="f-id" placeholder="chaff-manual"
+                     pattern="[a-z0-9\-]+" title="Lowercase letters, numbers and hyphens only">
+              <span class="field-hint">
+                Unique slug — lowercase letters &amp; hyphens only (e.g. <code>battery-sprayer</code>).
+                Auto-filled from the English name. Cannot be changed after saving.
+              </span>
+            </label>
+
+            <label class="field">
+              Category <span class="req">*</span>
+              <select id="f-cat"></select>
+            </label>
+
+            <label class="field">
+              Price (₹) — leave blank to show "Ask price"
+              <input type="number" id="f-price" placeholder="12500" min="0" step="1">
+            </label>
+
+            <label class="field">
+              Name — मराठी <span class="req">*</span>
+              <input type="text" id="f-n-mr" placeholder="हाताची कडबा कुट्टी">
+            </label>
+            <label class="field">
+              Name — हिंदी
+              <input type="text" id="f-n-hi" placeholder="हाथ वाली चाफ कटर">
+            </label>
+            <label class="field span2">
+              Name — English
+              <input type="text" id="f-n-en" placeholder="Manual chaff cutter">
+            </label>
+
+            <label class="field">
+              Description — मराठी
+              <textarea id="f-d-mr" rows="2" placeholder="वीज नसतानाही चारा बारीक करा"></textarea>
+            </label>
+            <label class="field">
+              Description — हिंदी
+              <textarea id="f-d-hi" rows="2" placeholder="बिना बिजली चारा काटें"></textarea>
+            </label>
+            <label class="field span2">
+              Description — English
+              <textarea id="f-d-en" rows="2" placeholder="Chop fodder without electricity"></textarea>
+            </label>
+
+            <label class="field span2">
+              Image path (optional)
+              <input type="text" id="f-img" placeholder="assets/chaff-manual.jpg">
+              <span class="field-hint">
+                Upload the image to the <code>assets/</code> folder on Hostinger first,
+                then type its path here.
+              </span>
+            </label>
+
+          </div><!-- /form-grid -->
+
+          <div class="form-actions">
+            <button id="formCancel" class="btn btn-ghost">Cancel</button>
+            <button id="formApply" class="btn btn-primary">Apply</button>
+          </div>
+        </div>
+      </div><!-- /formWrap -->
+
+      <!-- ── PRODUCT LIST ── -->
+      <div id="productList" class="product-list"></div>
+
+      <!-- how to use notice -->
+      <div class="notice notice-info">
+        <strong>How to publish changes:</strong>
+        Edit products above → click <em>⬇ Download data.js</em> → log in to Hostinger
+        File Manager → upload the file to <code>public_html/js/data.js</code> → done.
+      </div>
+
+    </div><!-- /adm-body -->
+  </div><!-- /adminScreen -->
+
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
